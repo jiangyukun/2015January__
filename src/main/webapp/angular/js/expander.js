@@ -11,11 +11,10 @@ expanderModule.directive('expander', function () {
         scope: {
             title: '=expanderTitle'
         },
-        template:
-            '<div>'
-                + '<div class="title" ng-click="toggle()">{{title}}</div>'
-                + '<div class="body" ng-show="showMe" ng-transclude></div>'
-            + '</div>',
+        template: '<div>' +
+        '<div class="title" ng-click="toggle()">{{title}}</div>' +
+        '<div class="body" ng-show="showMe" ng-transclude></div>' +
+        '</div>',
 
         link: function (scope, element, attrs) {
             scope.showMe = false;
@@ -28,7 +27,7 @@ expanderModule.directive('expander', function () {
 expanderModule.controller('SomeController', function ($scope) {
     $scope.title = '点击展开';
     $scope.text = '这里是内部的内容。';
-    /*    $scope.toggle = function () {
+    /* $scope.toggle = function () {
      $scope.showMe = !$scope.showMe;
      }*/
 });
