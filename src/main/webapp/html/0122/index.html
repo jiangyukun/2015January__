@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <meta name="Cache-Control" content="must-revalidate"/>
+    <title>滚屏</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/animations.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/page.css">
+    <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="css/demo.css"/>
+    <link rel="stylesheet" type="text/css" href="css/component.css"/>
+    <style>
+        .dot {
+            position: fixed;
+            top: 75%;
+            left: 30%;
+            z-index: 9;
+        }
+    </style>
+</head>
+<body>
+<div class="dotstyle dotstyle-scaleup dot">
+    <ul>
+        <li class="current"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</div>
+<div id="page-hd">
+    <div id="loading">
+        <div class="spinner">
+            <div class="spinner-container container1">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+            <div class="spinner-container container2">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+            <div class="spinner-container container3">
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+                <div class="circle3"></div>
+                <div class="circle4"></div>
+            </div>
+        </div>
+    </div>
+    <img src="img/icon_up.png" alt="" class="arrow-up pt-page-moveIconUp">
+</div>
+<div id="page-content">
+    <div class="page page-1 page-current"></div>
+    <div class="page page-2 hide"></div>
+    <div class="page page-3 hide"></div>
+    <div class="page page-4 hide"></div>
+    <div class="page page-5 hide"></div>
+    <div class="page page-6 hide"></div>
+    <div class="page page-7 hide"></div>
+    <div class="page page-8 hide"></div>
+    <div class="page page-9 hide"></div>
+</div>
+<script type="text/javascript" src="js/zepto.js"></script>
+<script type="text/javascript" src="js/touch.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/dots.js"></script>
+
+<script type="text/javascript">
+    [].slice.call(document.querySelectorAll('.dotstyle > ul')).forEach(function (element) {
+        new DotNav(element, {
+            callback: function (index) {
+                //console.log( idx )
+            }
+        });
+    });
+</script>
+</body>
+</html>

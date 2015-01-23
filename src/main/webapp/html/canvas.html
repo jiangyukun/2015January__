@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <meta name="Cache-Control" content="must-revalidate"/>
+    <title></title>
+    <link href="/static/css/common.css" rel="stylesheet" type="text/css">
+    <script src="/static/js/jquery-2.1.3.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="300" height="300"></canvas>
+<script>
+    'use strict';
+    var $canvas = $('canvas'), x, y;
+    var context = $canvas.get(0).getContext('2d');
+    var pic = new Image();
+    pic.onload = function () {
+        context.drawImage(pic, 0, 0);
+    };
+    pic.src = "http://imgsrc.baidu.com/forum/pic/item/e6b14bc2a4561b1fe4dd3b24.jpg";
+
+    /*context.fillStyle = "#EEEEFF";
+     context.fillRect(0, 0, 300, 300);
+     var n = 0;
+     var dx = 150;
+     var dy = 150;
+     var s = 100;
+     context.beginPath();
+     context.fillStyle = 'rgb(100,255,100)';
+     context.strokeStyle = 'rgb(0,0,100)';
+     var dig = Math.PI / 4 * 3;
+     for (var i = 0; i < 8; i++) {
+     x = Math.sin(i * dig);
+     y = Math.cos(i * dig);
+     context.lineTo(dx + x * s, dy + y * s);
+     }
+     context.closePath();
+     context.fill();
+     context.stroke();*/
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="http://10.137.1.121:8080/">
+    <meta charset="utf-8">
+    <title>微信JS-SDK Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="static/js/jquery-1.11.2.js"></script>
+    <script>
+        +function (window, $) {
+            var weixin = {}, init = false;
+            var t = navigator.userAgent.toLowerCase();
+            var x = t.match(/micromessenger\/(\d+\.\d+\.\d+)/) || t.match(/micromessenger\/(\d+\.\d+)/);
+            var v = x ? x[1] : "", lessThan6_0_2 = "6.0.2" > v;
+
+            weixin.config = function (configInfo) {
+                if (!window.wx) {
+                    throw new Error('wx don\'t exist');
+                }
+                if (!init) {
+                    weixin.ready = wx.ready;
+                    $.ajax({
+                        async: false,
+                        typd: 'POST',
+                        url: '',
+                        data: {
+                            url: location.href
+                        },
+                        dataType: 'json'
+                    }).done(function (data) {
+                        configInfo.appId = configInfo.appId || data.appId;
+                        configInfo.timestamp = configInfo.timestamp || data.timestamp;
+                        configInfo.nonceStr = configInfo.nonceStr || data.nonceStr;
+                        configInfo.signature = configInfo.signature || data.signature;
+                    });
+                    init = true;
+                    wx.config(configInfo);
+                }
+            };
+
+            weixin.onShareTimeline = function (options) {
+                var opt, dispatchResult;
+                if (lessThan6_0_2) {
+                    opt = {
+                        img_url: options.imgUrl,
+                        link: options.link,
+                        desc: options.desc,
+                        title: options.title
+                    };
+                    dispatchResult = {
+                        success: options.success || $.noop,
+                        cancel: options.cancel || $.noop,
+                        fail: options.fail || $.noop
+                    };
+                    WeixinJSBridge.on('menu:share:timeline', function () {
+                        WeixinJSBridge.invoke('shareTimeline', opt, function (result) {
+                            if (result.err_msg === 'share_timeline:ok') {
+                                dispatchResult.success.apply(this, arguments);
+                            } else if (result.err_msg === 'share_timeline:cancel') {
+                                dispatchResult.cancel.apply(this, arguments);
+                            } else if (result.err_msg === 'share_timeline:fail') {
+                                dispatchResult.fail.apply(this, arguments);
+                            }
+                        });
+                    });
+                } else {
+                    alert(11);
+                    wx.onMenuShareTimeline(options);
+                }
+            };
+            weixin.onShareAppMessage = function (options) {
+                var opt;
+                if (lessThan6_0_2) {
+                    opt = {
+                        img_url: options.imgUrl,
+                        link: options.link,
+                        desc: options.desc,
+                        title: options.title
+                    };
+                    WeixinJSBridge.on('menu:share:appmessage', function () {
+                        WeixinJSBridge.invoke('sendAppMessage', opt, options.trigger);
+                    });
+                } else {
+                    wx.onMenuShareAppMessage(options);
+                }
+            };
+
+            weixin.hideOptionMenu = function () {
+                if (lessThan6_0_2) {
+                    WeixinJSBridge.call('hideOptionMenu');
+                } else {
+                    wx.hideOptionMenu();
+                }
+            };
+
+            weixin.showOptionMenu = function () {
+                if (lessThan6_0_2) {
+                    WeixinJSBridge.call('showOptionMenu');
+                } else {
+                    wx.showOptionMenu();
+                }
+            };
+
+            window.weixin = weixin;
+        }(window, jQuery);
+    </script>
+</head>
+<body>
+<div style="height: 100px;"></div>
+<button id="hide">hide</button>
+<button id="show">show</button>
+<button id="share">share</button>
+<button id="send">send</button>
+</body>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    weixin.config({
+
+        debug: false,
+        jsApiList: ['onMenuShareTimeline', 'hideOptionMenu', 'showOptionMenu', 'onMenuShareAppMessage']
+    });
+    $('#hide').on('click', function () {
+        weixin.hideOptionMenu();
+    });
+    $('#show').on('click', function () {
+        weixin.showOptionMenu();
+    });
+    $('#share').on('click', function () {
+        weixin.onShareTimeline({
+            title: '互联网之子',
+            desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
+            link: 'http://movie.douban.com/subject/25785114/',
+            imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
+            trigger: function (result) {
+                alert('开始分享');
+            },
+            success: function (res) {
+                alert('已分享');
+            },
+            cancel: function (res) {
+                alert('已取消');
+            },
+            fail: function (res) {
+                alert('失败');
+            }
+        });
+    });
+    $('#send').on('click', function () {
+        weixin.onShareAppMessage({
+            title: '互联网之子',
+            desc: '在长大的过程中，我才慢慢发现，我身边的所有事，别人跟我说的所有事，那些所谓本来如此，注定如此的事，它们其实没有非得如此，事情是可以改变的。更重要的是，有些事既然错了，那就该做出改变。',
+            link: 'http://movie.douban.com/subject/25785114/',
+            imgUrl: 'http://img3.douban.com/view/movie_poster_cover/spst/public/p2166127561.jpg',
+            trigger: function (res) {
+                alert('用户点击发送给朋友');
+            },
+            success: function (res) {
+                alert('已发送');
+            },
+            cancel: function (res) {
+                alert('已取消');
+            },
+            fail: function (res) {
+                alert('失败');
+            }
+        });
+    });
+</script>
+</html>

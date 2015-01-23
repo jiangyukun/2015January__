@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <meta name="Cache-Control" content="must-revalidate"/>
+    <title>抽奖</title>
+    <link type="text/css" rel="stylesheet" href="css/common.v4.css"/>
+    <link type="text/css" rel="stylesheet" href="css/lottery.css"/>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="js/rotate.js"></script>
+    <script type="text/javascript" src="js/lottery.js?dsf"></script>
+<body>
+<div class="page-full-screen">
+    <div class="page-container font-family-heiti font-size-t my-page-container">
+        <img id="lottery-bg" class="lottery-bg-img" src="img/lottery_bg.jpg"/>
+        <img id="invite_friend" class="invite-img" src="img/invite.png" onclick="lottery.invite();"/>
+
+        <div id="lottery_div" class="my-lottery-div">
+            <img id="turntable" class="turntable-img" src="img/turntable.png"/>
+            <img id="pointer" class="pointer-img" src="img/pointer.png"/>
+            <input id="btn_start" type="button" class="my-btn-start" value="" onclick="lottery.lottery();"/>
+
+            <div id="lottery_num" class="lottery-num-div">可抽
+                <span id="lottery_num_span" class="lottery-num-span">5</span> 次
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

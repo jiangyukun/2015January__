@@ -1,0 +1,12 @@
+[
+{"isHasChance":"true","rotate":0,"results":"再接再厉!!"},
+{"isHasChance":"true","rotate":36,"results":"88元红包!!"},
+{"isHasChance":"true","rotate":72,"results":"再接再厉!!"},
+{"isHasChance":"true","rotate":108,"results":"2元红包!!"},
+{"isHasChance":"true","rotate":144,"results":"再接再厉!!"},
+{"isHasChance":"true","rotate":180,"results":"8元红包!!"},
+{"isHasChance":"true","rotate":216,"results":"再接再厉!!"},
+{"isHasChance":"true","rotate":252,"results":"9.6元红包!!"},
+{"isHasChance":"true","rotate":288,"results":"再接再厉!!"},
+{"isHasChance":"true","rotate":324,"results":"58元红包!!"}
+]
