@@ -16,6 +16,9 @@ expanderModule.directive('expander', function () {
         '<div class="body" ng-show="showMe" ng-transclude></div>' +
         '</div>',
 
+        /*compile: function () {
+            console.log(1);
+        },*/
         link: function (scope, element, attrs) {
             scope.showMe = false;
             scope.toggle = function () {
