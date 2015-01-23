@@ -10,8 +10,12 @@ angular.module('test', [])
             replace: true,
             template: '<div ng-transclude></div>',
             controller: function () {
-                var books = [];
+                var books = [], firstShowed = false;
                 this.addBook = function (book) {
+                    if (!firstShowed) {
+                        book.show = true;
+                        firstShowed = true;
+                    }
                     books.push(book);
                 };
                 this.show = function (currentBook) {
