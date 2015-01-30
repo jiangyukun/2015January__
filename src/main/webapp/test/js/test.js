@@ -28,7 +28,7 @@ angular.module('test', [])
             }
         };
     })
-    .directive('test', function () {
+    .directive('book', function () {
         return {
             restrict: 'E',
             transclude: true,
@@ -42,7 +42,7 @@ angular.module('test', [])
             link: function (scope, element, attrs, accordionController) {
                 accordionController.addBook(scope);
                 scope.toggle = function () {
-                    scope.show = true;
+                    scope.show = !scope.show;
                     accordionController.show(scope);
                 }
             }

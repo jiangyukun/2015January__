@@ -10,9 +10,7 @@
  */
 ;
 (function (window) {
-
     'use strict';
-
     function extend(a, b) {
         for (var key in b) {
             if (b.hasOwnProperty(key)) {
@@ -24,36 +22,34 @@
 
     function DotNav(el, options) {
         this.nav = el;
+        this.current = 0;
+        this.dots = [].slice.call(this.nav.querySelectorAll('li'));
+        this.hop = this.nav.parentNode.className.indexOf('dotstyle-hop') !== -1;
+        var self = this;
+        this.setSelect = function (index) {
+            var dot = self.dots[index];
+            if (index !== self.current) {
+                self.dots[self.current].className = '';
+                if (self.hop && index < self.current) {
+                    dot.className += ' current-from-right';
+                }
+                setTimeout(function () {
+                    dot.className += ' current';
+                    self.current = index;
+                    if (typeof self.options.callback === 'function') {
+                        self.options.callback(self.current);
+                    }
+                }, 25);
+            }
+        };
         this.options = extend({}, this.options);
         extend(this.options, options);
         this._init();
+        return this;
     }
 
     DotNav.prototype.options = {};
-
     DotNav.prototype._init = function () {
-        var hop = this.nav.parentNode.className.indexOf('dotstyle-hop') !== -1;
-
-        var dots = [].slice.call(this.nav.querySelectorAll('li')), current = 0, self = this;
-
-        dots.forEach(function (dot, index) {
-            dot.addEventListener('click', function (event) {
-                event.preventDefault();
-                if (index !== current) {
-                    dots[current].className = '';
-                    if (hop && index < current) {
-                        dot.className += ' current-from-right';
-                    }
-                    setTimeout(function () {
-                        dot.className += ' current';
-                        current = index;
-                        if (typeof self.options.callback === 'function') {
-                            self.options.callback(current);
-                        }
-                    }, 25);
-                }
-            });
-        });
     };
     window.DotNav = DotNav;
 })(window);

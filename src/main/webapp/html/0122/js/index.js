@@ -1,20 +1,34 @@
 (function () {
+    'use strict';
+    var i, div, ul, li, a, pages, size;
+    pages = document.querySelectorAll('[data-role=rtIntroducePages]')[0];
+    size = pages.querySelectorAll('div').length;
+    div = document.createElement('div');
+    ul = document.createElement('ul');
+    div.className = 'dotstyle dotstyle-scaleup dots';
+    for (i = 1; i <= size; i++) {
+        li = document.createElement('li');
+        if (i == 1) {
+            li.className = 'current';
+        }
+        a = document.createElement('a');
+        a.href = '#';
+        li.appendChild(a);
+        ul.appendChild(li);
+    }
+    div.appendChild(ul);
+    var body = document.getElementsByTagName('body')[0];
+    body.appendChild(div);
+    var scrollImg = document.createElement('img');
+    scrollImg.className = 'arrow-up pt-page-moveIconUp';
+    scrollImg.src= 'img/icon_up.png';
+    body.appendChild(scrollImg);
 
-//配置
-    var config = {
-        'audio': {
-            'icon': 'audio-record-play',
-            'text': true
-        },
-        'loading': 'loading-ic'
-    };
+    var dots = new DotNav(document.querySelectorAll('.dots > ul')[0]);
 
-//loading
     window.onload = function () {
         $('#loading').hide();
     };
-
-//分享
 
     $('#js-btn-share').bind('tap', function () {
         $('#js-share').show();
@@ -23,13 +37,11 @@
         $(this).hide();
     });
 
-
     var pageIndex = 1,
         pageTotal = $('.page').length,
         towards = {up: 1, right: 2, down: 3, left: 4},
         isAnimating = false;
 
-//禁用手机默认的触屏滚动行为
     document.addEventListener('touchmove', function (event) {
         event.preventDefault();
     }, false);
@@ -42,6 +54,7 @@
             pageIndex = 1;
         }
         pageMove(towards.up);
+        dots.setSelect(pageIndex - 1);
     });
 
     $(document).swipeDown(function () {
@@ -52,6 +65,7 @@
             pageIndex = pageTotal;
         }
         pageMove(towards.down);
+        dots.setSelect(pageIndex - 1);
     });
 
     function pageMove(tw) {
@@ -70,7 +84,7 @@
             }
         }
 
-        var nowPage = ".page-" + pageIndex;
+        var nowPage = ".page-" + pageIndex, outClass, inClass;
 
         switch (tw) {
             case towards.up:

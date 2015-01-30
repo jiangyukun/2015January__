@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <meta name="Cache-Control" content="must-revalidate"/>
+    <title></title>
+    <link href="/static/css/common.css" rel="stylesheet" type="text/css">
+    <script src="/static/js/template.js"></script>
+    <style></style>
+    <script id="test" type="text/html">
+        <h1>{{title}}</h1>
+        <ul>
+            {{each list}}
+               第{{$index}}个数组
+                {{each $value}}
+                    {{$value}}
+                {{/each}}
+                <br>
+            {{/each}}
+        </ul>
+    </script>
+</head>
+<body>
+<div id="content"></div>
+<script>
+    var data = {
+        title: '标签',
+        list: [[1, 2, 3],[4, 5, 6, 7], [100]]
+    };
+    var html = template('test', data);
+    document.getElementById('content').innerHTML = html;
+</script>
+</body>
+</html>
